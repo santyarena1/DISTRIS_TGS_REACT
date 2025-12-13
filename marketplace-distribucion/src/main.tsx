@@ -1,10 +1,22 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App'
 import './index.css'
-import App from './App.tsx'
+import { AuthProvider } from './context/AuthContext'
+import { CartProvider } from './context/CartContext'
+import { SettingsProvider } from './context/SettingsContext'
+import { PcBuilderProvider } from './context/PcBuilderContext' // Importar
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <AuthProvider>
+      <SettingsProvider>
+        <PcBuilderProvider> {/* Envolver */}
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </PcBuilderProvider>
+      </SettingsProvider>
+    </AuthProvider>
+  </React.StrictMode>,
 )

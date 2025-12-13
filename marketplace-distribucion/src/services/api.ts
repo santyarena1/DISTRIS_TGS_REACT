@@ -1,15 +1,15 @@
-// src/services/api.ts
 import axios from 'axios';
 
-// Usamos el proxy configurado en vite.config.ts, así que la baseURL es relativa
+// ✅ RESTAURADO: Apunta a /api para que el Login funcione
+const API_URL = 'http://localhost:3000/api'; 
+
 const api = axios.create({
-  baseURL: '/', 
+  baseURL: API_URL, 
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-// Interceptor: Antes de cada petición, inyecta el token si existe
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('jwt_token');
@@ -21,14 +21,14 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Interceptor: Si el backend devuelve 401 (Token inválido), cierra sesión
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('jwt_token');
-      // Opcional: Redirigir al login usando window.location o un evento
-      window.location.href = '/login'; 
+      if (error.config.url && !error.config.url.includes('/auth/login')) {
+        localStorage.removeItem('jwt_token');
+        window.location.href = '/'; 
+      }
     }
     return Promise.reject(error);
   }

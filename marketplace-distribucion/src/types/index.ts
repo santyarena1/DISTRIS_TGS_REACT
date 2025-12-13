@@ -1,7 +1,5 @@
-// src/types/index.ts
-
 export interface User {
-  id: number;
+  id: number | string;
   email: string;
   role: 'admin' | 'user';
   first_name?: string;
@@ -14,7 +12,7 @@ export interface AuthResponse {
 }
 
 export interface Product {
-  id: string; // Usamos string para compatibilidad (sku o uuid)
+  id: string;
   sku: string;
   name: string;
   description?: string;
@@ -22,8 +20,12 @@ export interface Product {
   stock: number;
   category?: string;
   brand?: string;
-  imageUrl?: string;
-  distributorId: 'newbytes' | 'gruponucleo' | 'elit' | 'tgs'; // Identificador del proveedor
+  imageUrl?: string | null;
+  
+  // ✅ AQUÍ ESTÁ LA CLAVE: Agregamos gamingcity
+  distributorId: 'newbytes' | 'gruponucleo' | 'elit' | 'tgs' | 'gamingcity'; 
+  
+  vat?: number; // IVA opcional
 }
 
 export interface Distributor {
