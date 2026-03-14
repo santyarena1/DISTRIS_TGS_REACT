@@ -150,3 +150,4 @@ export function PcBuilder({ onClose }: { onClose: () => void }) {
   );
 }
 
+

@@ -255,3 +255,4 @@ npm run build
 
 Este proyecto es una reconstrucción mock del frontend original.
 
+
